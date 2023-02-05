@@ -16,7 +16,7 @@ filename = '/tmp/node_exporter/lvm_usage.prom'
 
 out = None
 err = None
-out = subprocess.check_output(["lvs", "--reportformat", "json", "--units", "m"], stderr=err, shell=False, timeout=30)
+out = subprocess.check_output(["/sbin/lvs", "--reportformat", "json", "--units", "m"], stderr=err, shell=False, timeout=30)
 
 json_arr = json.loads(out)
 json_arr = json_arr['report'][0]['lv']
