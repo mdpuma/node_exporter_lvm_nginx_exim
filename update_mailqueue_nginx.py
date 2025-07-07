@@ -1,9 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 # apt install python3 python3-pip
 #
 # crontab line 
-# 30 * * * * /root/update_mailqueue_nginx.py 
+# 30 * * * * /root/node_exporter_lvm_nginx_exim/update_mailqueue_nginx.py
 #
 # --collector.textfile.directory=/tmp/node_exporter
 
@@ -30,6 +30,7 @@ err = None
 # timeout=30
 
 out = subprocess.check_output(["/usr/sbin/exiqgrep", "-bzc"], stderr=err, shell=False)
+out = out.decode() if isinstance(out, bytes) else out
 
 test1 = re.match("^([0-9]+) matches out of ([0-9]+) messages", out)
 if test1:
@@ -37,6 +38,7 @@ if test1:
 	total_messages = test1.group(2)
 
 out = subprocess.check_output(["/usr/sbin/exiqgrep", "-bxc"], stderr=err, shell=False)
+out = out.decode() if isinstance(out, bytes) else out
 
 test1 = re.match("^([0-9]+) matches out of ([0-9]+) messages", out)
 if test1:
