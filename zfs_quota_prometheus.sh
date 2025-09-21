@@ -13,7 +13,7 @@ echo "# HELP zfs_user_used_bytes ZFS user used space in bytes" >> "$TMPFILE"
 echo "# TYPE zfs_user_used_bytes gauge" >> "$TMPFILE"
 
 # Loop through datasets with quotas
-for dataset in $(zfs list -H -o name); do
+for dataset in $(/usr/sbin/zfs list -H -o name); do
     # Get per-user quota and usage
     /usr/sbin/zfs userspace -H -o name,quota,used "$dataset" 2>/dev/null | while read -r user quota used; do
         # skip "root" and "-" placeholders
